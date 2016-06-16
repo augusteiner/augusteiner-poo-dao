@@ -6,15 +6,30 @@ package br.eng.augusteiner.poo.dao.common;
  */
 public class DAOFactory {
 
-    private static IDAOFactory factory;
+    private class NullDAOFactory implements IDAOFactory {
 
-    public static <V> IDAO<V> createNew(Class<V> clazz) {
+        public <T> IDAO<T> createNew(Class<T> clazz) {
 
-        return factory.createNew(clazz);
+            return null;
+        }
+    }
+
+    private static final DAOFactory INSTANCE = new DAOFactory();
+
+    public static <T> IDAO<T> createNew(Class<T> clazz) {
+
+        return INSTANCE.impl.createNew(clazz);
     }
 
     public static void register(IDAOFactory factoryImpl) {
 
-        factory = factoryImpl;
+        INSTANCE.impl = factoryImpl;
+    }
+
+    private IDAOFactory impl;
+
+    private DAOFactory() {
+
+        this.impl = new NullDAOFactory();
     }
 }

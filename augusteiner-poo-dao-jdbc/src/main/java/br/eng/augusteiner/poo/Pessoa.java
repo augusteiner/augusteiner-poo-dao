@@ -11,11 +11,21 @@ public class Pessoa implements IIdentifiable<Integer> {
     private Integer id;
     private String nome;
 
-    public Pessoa() { }
+    public Pessoa() {
+
+        this.id = 0;
+    }
 
     public Pessoa(String nome) {
 
+        this();
+
         this.nome = nome;
+    }
+
+    public Integer getId() {
+
+        return id;
     }
 
     public String getNome() {
@@ -28,8 +38,12 @@ public class Pessoa implements IIdentifiable<Integer> {
         this.nome = nome;
     }
 
-    public Integer getId() {
+    @Override
+    public String toString() {
 
-        return id;
+        return String.format(
+            "#%d - %s",
+            this.getId(),
+            this.getNome());
     }
 }

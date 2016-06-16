@@ -19,21 +19,21 @@ public class JdbcDAO<V> implements IDAO<V> {
 
     public boolean delete(V entity) {
 
-        Object query = JdbcUtils.deleteFromMeta(this.meta);
+        JdbcUtils.deleteFromMeta(this.meta);
 
         return false;
     }
 
     public Iterable<V> findAll() {
 
-        Object query = JdbcUtils.selectFromMeta(this.meta);
+        JdbcUtils.selectFromMeta(this.meta);
 
         return null;
     }
 
     public V findById(Integer id) {
 
-        Object query = JdbcUtils.selectFromMeta(this.meta);
+        JdbcUtils.selectFromMeta(this.meta);
 
         return null;
     }

@@ -6,17 +6,52 @@ package br.eng.augusteiner.poo.dao.common;
  */
 public class RepositoryFactory {
 
-    public static <V> IRepository<V> createNew(Class<V> clazz) {
+    private static class Nested {
 
-        IDAO<V> dao = DAOFactory.createNew(clazz);
+        private static final RepositoryFactory INSTANCE = new RepositoryFactory();
 
-        return new DAORepositoryImpl<V>(dao);
+        private static RepositoryFactory getSingleton() {
+
+            return INSTANCE;
+        }
+
+        private Nested() { }
     }
 
-    //public static <K, V> IRepository<V> createNew(Class<K> keyClazz, Class<V> clazz) {
-    //
-    //    IDAO<K, V> dao = new DAOImpl<K, V>();
-    //
-    //    return new DAORepositoryImpl<K, V>(dao);
-    //}
+    private class RepositoryFactoryImpl implements IRepositoryFactory {
+
+        public <T> IRepository<T> createNew(Class<T> clazz) {
+
+            return new DAORepository<T>(DAOFactory.createNew(clazz));
+        }
+
+        public void onRegister(RegisterEventData<IRepositoryFactory> e) {
+
+            //
+        }
+    }
+
+    public static <T> IRepository<T> createNew(Class<T> clazz) {
+
+        return getSingleton().impl.createNew(clazz);
+    }
+
+    private static RepositoryFactory getSingleton() {
+
+        return Nested.getSingleton();
+    }
+
+    public static void register(IRepositoryFactory factoryImpl) {
+
+        factoryImpl.onRegister(RegisterEventData.from(getSingleton().impl));
+
+        getSingleton().impl = factoryImpl;
+    }
+
+    private IRepositoryFactory impl;
+
+    private RepositoryFactory() {
+
+        this.impl = new RepositoryFactoryImpl();
+    }
 }

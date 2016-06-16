@@ -10,27 +10,27 @@ package br.eng.augusteiner.poo.dao.common.generic;
 public class DAOImpl<K, V> implements IDAO<K, V> {
 
     public boolean delete(V entity) {
-        // TODO Auto-generated method stub
+
         return false;
     }
 
     public Iterable<V> findAll() {
-        // TODO Auto-generated method stub
+
         return null;
     }
 
     public V findById(K id) {
-        // TODO Auto-generated method stub
+
         return null;
     }
 
     public boolean save(V entity) {
-        // TODO Auto-generated method stub
+
         return false;
     }
 
     public boolean saveOrUpdate(V entity) {
-        // TODO Auto-generated method stub
+
         return false;
     }
 }

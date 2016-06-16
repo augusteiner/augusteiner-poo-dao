@@ -6,7 +6,7 @@ package br.eng.augusteiner.poo.dao.common;
  *
  * @param <V>
  */
-public class DAORepositoryImpl<V>
+class DAORepositoryImpl<V>
     extends br.eng.augusteiner.poo.dao.common.generic.DAORepositoryImpl<Integer, V>
     implements IRepository<V> {
 
