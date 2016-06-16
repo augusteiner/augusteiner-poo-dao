@@ -22,5 +22,10 @@
             <artifactId>augusteiner-poo-dao-common</artifactId>
             <version>0.1.0-RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.ddlutils</groupId>
+            <artifactId>ddlutils</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
 </project>

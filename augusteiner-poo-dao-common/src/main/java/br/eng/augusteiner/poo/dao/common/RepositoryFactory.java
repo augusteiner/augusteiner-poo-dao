@@ -6,9 +6,9 @@ package br.eng.augusteiner.poo.dao.common;
  */
 public class RepositoryFactory {
 
-    public static <V extends IIdentifiable<Integer>> IRepository<V> createNew(Class<V> clazz) {
+    public static <V> IRepository<V> createNew(Class<V> clazz) {
 
-        IDAO<V> dao = new DAOImpl<V>();
+        IDAO<V> dao = DAOFactory.createNew(clazz);
 
         return new DAORepositoryImpl<V>(dao);
     }
