@@ -15,7 +15,6 @@ public class App {
     static {
 
         DAOFactory.register(new JdbcDAOFactory());
-
         RepositoryFactory.register(new LoggingRepositoryFactory());
     }
 

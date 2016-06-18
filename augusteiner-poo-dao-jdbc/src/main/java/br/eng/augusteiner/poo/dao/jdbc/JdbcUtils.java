@@ -4,13 +4,18 @@ package br.eng.augusteiner.poo.dao.jdbc;
 import java.util.Arrays;
 import java.util.Collection;
 
+import org.apache.ddlutils.Platform;
+import org.apache.ddlutils.PlatformFactory;
+import org.apache.ddlutils.io.DatabaseIO;
 import org.apache.ddlutils.model.Column;
+import org.apache.ddlutils.model.Database;
 import org.apache.ddlutils.model.Table;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
 public class JdbcUtils {
+
 
     /**
      * @see {@link http://stackoverflow.com/questions/5620985/is-there-any-good-dynamic-sql-builder-library-in-java#answer-17492098}
@@ -26,14 +31,30 @@ public class JdbcUtils {
             "Tabela %s",
             meta.getTable()));
 
-        Column idColumn = new Column();
+        for (JdbcField field : meta.getFields())
+        {
+            Column column = new Column();
 
-        idColumn.setPrimaryKey(true);
-        idColumn.setName("id");
-        idColumn.setType("int");
-        idColumn.setRequired(true);
+            if (field.getName().equals("Id")) {
 
-        table.addColumn(idColumn);
+                column.setPrimaryKey(true);
+                column.setRequired(true);
+            }
+
+            column.setName(field.getName());
+            column.setType(field.getType().toLowerCase());
+
+            table.addColumn(column);
+        }
+
+        Platform platform = PlatformFactory.createNewPlatformInstance("mysql");
+
+        Database db = new Database();
+        db.addTable(table);
+
+        String create = platform.getCreateTablesSql(db, true, true);
+
+        System.out.println(create);
 
         return table;
     }
@@ -46,10 +67,5 @@ public class JdbcUtils {
     public static <T> Object selectFromMeta(JdbcMetadata<T> meta) {
 
         return null;
-    }
-
-    public static <T> Collection<String> fieldsFromMeta(JdbcMetadata<T> meta) {
-
-        return Arrays.asList(new String[0]);
     }
 }
