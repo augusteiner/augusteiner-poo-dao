@@ -1,5 +1,5 @@
 
-package br.eng.augusteiner.poo.dao.common;
+package br.eng.augusteiner.poo.common;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>

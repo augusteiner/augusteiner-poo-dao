@@ -1,15 +1,12 @@
 
 package br.eng.augusteiner.poo.dao.jdbc;
 
-import java.util.Arrays;
-import java.util.Collection;
-
 import org.apache.ddlutils.Platform;
 import org.apache.ddlutils.PlatformFactory;
-import org.apache.ddlutils.io.DatabaseIO;
 import org.apache.ddlutils.model.Column;
 import org.apache.ddlutils.model.Database;
 import org.apache.ddlutils.model.Table;
+import org.apache.ddlutils.platform.SqlBuilder;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
@@ -26,10 +23,10 @@ public class JdbcUtils {
 
         Table table = new Table();
 
-        table.setName(meta.getTable());
+        table.setName(meta.getTable().toUpperCase());
         table.setDescription(String.format(
             "Tabela %s",
-            meta.getTable()));
+            table.getName()));
 
         for (JdbcField field : meta.getFields())
         {
@@ -39,6 +36,7 @@ public class JdbcUtils {
 
                 column.setPrimaryKey(true);
                 column.setRequired(true);
+                column.setAutoIncrement(true);
             }
 
             column.setName(field.getName());
@@ -47,6 +45,13 @@ public class JdbcUtils {
             table.addColumn(column);
         }
 
+        return table;
+    }
+
+    public static <T> void insertFromMeta(JdbcMetadata<T> meta, T object) {
+
+        Table table = tableFromMeta(meta);
+
         Platform platform = PlatformFactory.createNewPlatformInstance("mysql");
 
         Database db = new Database();
@@ -54,9 +59,12 @@ public class JdbcUtils {
 
         String create = platform.getCreateTablesSql(db, true, true);
 
-        System.out.println(create);
+        SqlBuilder builder = platform.getSqlBuilder();
 
-        return table;
+        String insert = builder.getInsertSql(table, meta.values(object), true);
+
+        System.out.println(create);
+        System.out.println(insert);
     }
 
     public static <T> Object deleteFromMeta(JdbcMetadata<T> meta) {

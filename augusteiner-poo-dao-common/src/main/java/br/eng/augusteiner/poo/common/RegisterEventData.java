@@ -1,5 +1,5 @@
 
-package br.eng.augusteiner.poo.dao.common;
+package br.eng.augusteiner.poo.common;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
@@ -20,7 +20,7 @@ public class RegisterEventData<T> {
         return previous;
     }
 
-    static <T> RegisterEventData<T> from(T data) {
+    public static <T> RegisterEventData<T> from(T data) {
 
         return new RegisterEventData<T>(data);
     }

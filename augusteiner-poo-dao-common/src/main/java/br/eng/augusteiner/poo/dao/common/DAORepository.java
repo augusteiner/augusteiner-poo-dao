@@ -1,6 +1,10 @@
 
 package br.eng.augusteiner.poo.dao.common;
 
+import java.util.Iterator;
+
+import br.eng.augusteiner.poo.common.IRepository;
+
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  *
@@ -15,28 +19,27 @@ class DAORepository<T> implements IRepository<T> {
         this.dao = dao;
     }
 
-    public boolean delete(T entity) {
+    @Override
+    public void add(T entity) {
 
-        return this.dao.delete(entity);
+        this.dao.save(entity);
     }
 
-    public Iterable<T> findAll() {
+    @Override
+    public Iterator<T> iterator() {
 
-        return this.dao.findAll();
+        return this.values().iterator();
     }
 
-    public T findById(Integer id) {
+    @Override
+    public void remove(T entity) {
 
-        return this.dao.findById(id);
+        this.dao.delete(entity);
     }
 
-    public boolean save(T entity) {
+    @Override
+    public Iterable<T> values() {
 
-        return this.dao.save(entity);
-    }
-
-    public boolean saveOrUpdate(T entity) {
-
-        return this.dao.saveOrUpdate(entity);
+        return null;
     }
 }

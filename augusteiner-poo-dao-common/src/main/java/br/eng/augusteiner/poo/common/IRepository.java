@@ -1,5 +1,5 @@
 
-package br.eng.augusteiner.poo.dao.common;
+package br.eng.augusteiner.poo.common;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
@@ -7,6 +7,6 @@ package br.eng.augusteiner.poo.dao.common;
  * @param <V>
  */
 public interface IRepository<V>
-    extends br.eng.augusteiner.poo.dao.common.generic.IRepository<Integer, V> {
+    extends br.eng.augusteiner.poo.common.generic.IRepository<Integer, V> {
 
 }

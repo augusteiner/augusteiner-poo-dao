@@ -1,7 +1,7 @@
 
 package br.eng.augusteiner.poo;
 
-import br.eng.augusteiner.poo.dao.common.IIdentifiable;
+import br.eng.augusteiner.poo.common.IIdentifiable;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>

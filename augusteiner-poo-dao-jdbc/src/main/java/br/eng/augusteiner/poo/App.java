@@ -1,10 +1,10 @@
 
 package br.eng.augusteiner.poo;
 
+import br.eng.augusteiner.poo.common.IRepository;
+import br.eng.augusteiner.poo.common.LoggingRepositoryFactory;
 import br.eng.augusteiner.poo.dao.common.DAOFactory;
-import br.eng.augusteiner.poo.dao.common.IRepository;
-import br.eng.augusteiner.poo.dao.common.LoggingRepositoryFactory;
-import br.eng.augusteiner.poo.dao.common.RepositoryFactory;
+import br.eng.augusteiner.poo.dao.common.DAORepositoryFactory;
 import br.eng.augusteiner.poo.dao.jdbc.JdbcDAOFactory;
 
 /**
@@ -15,21 +15,22 @@ public class App {
     static {
 
         DAOFactory.register(new JdbcDAOFactory());
-        RepositoryFactory.register(new LoggingRepositoryFactory());
+        DAORepositoryFactory.register(new LoggingRepositoryFactory());
     }
 
     public static void main(String[] args) {
 
-        IRepository<Pessoa> repo = RepositoryFactory.createNew(Pessoa.class);
+        IRepository<Pessoa> repo = DAORepositoryFactory
+            .createNew(Pessoa.class);
 
-        Pessoa p1 = new Pessoa("José Augusto");
+        Pessoa p1 = new PessoaFisica();
 
-        //System.out.println(p1);
+        // System.out.println(p1);
 
-        //Assert.assertNull(repo);
-        //Assert.assertNull(dao);
+        // Assert.assertNull(repo);
+        // Assert.assertNull(dao);
 
-        repo.save(p1);
+        repo.add(p1);
 
         // System.out.println(repo.getClass().getName());
     }

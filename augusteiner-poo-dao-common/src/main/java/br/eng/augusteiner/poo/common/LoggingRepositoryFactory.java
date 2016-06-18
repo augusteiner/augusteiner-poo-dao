@@ -1,5 +1,5 @@
 
-package br.eng.augusteiner.poo.dao.common;
+package br.eng.augusteiner.poo.common;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
